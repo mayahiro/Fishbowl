@@ -1,13 +1,9 @@
 package xyz.mayahiro.fishbowl.widget
 
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
-import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
-import android.view.animation.LinearInterpolator
 
 /**
  * Created by mayahiro on 2017/11/07.
@@ -23,17 +19,11 @@ class FishbowlView @JvmOverloads constructor(context: Context, attrs: AttributeS
     private var shaderMatrix: Matrix = Matrix()
 
     // for animation
-    private val waveShiftAnimation: ObjectAnimator = ObjectAnimator.ofFloat(this, "waveShiftRatio", 0f, 1f)
     private var waveShiftRatio: Float = 0f
-    private val animatorSet = AnimatorSet()
 
-    private fun setWaveShiftRatio(value: Float) {
+    fun setWaveShiftRatio(value: Float) {
         waveShiftRatio = value
         invalidate()
-    }
-
-    init {
-        initAnimation()
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -92,13 +82,5 @@ class FishbowlView @JvmOverloads constructor(context: Context, attrs: AttributeS
                 wavePaint.shader = waveShader
             }
         }
-    }
-
-    private fun initAnimation() {
-        waveShiftAnimation.repeatCount = ValueAnimator.INFINITE
-        waveShiftAnimation.duration = 5000
-        waveShiftAnimation.interpolator = LinearInterpolator()
-        animatorSet.play(waveShiftAnimation)
-        animatorSet.start()
     }
 }
